@@ -1,0 +1,35 @@
+main.flex {
+  background-color: blueviolet;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  border: 3px solid blue;
+  background-color: gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.sing {
+  font-size: 50px;
+}
+
+.cellBar-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cellBar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+}
