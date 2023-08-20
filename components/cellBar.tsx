@@ -62,7 +62,7 @@ function CellBar() {
   }, []);
 
   useLayoutEffect(() => {
-    const win = winCombinations(gameData);
+    const win: any = winCombinations(gameData);
     console.log(win + "WIN");
     if (win[0] && !isWinner ) {
       // alert(`WIN! ${win[1]} is winner!`);
