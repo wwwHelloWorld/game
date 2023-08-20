@@ -14,7 +14,6 @@ export const winCombinations  = (gameData: DataItem): any => {
 
   for (const combination of winCombinations) {
     const [a, b, c] = combination;
-    console.log(gameData[a], gameData[b], gameData[c])
     if (gameData[a] === gameData[b] && gameData[b] === gameData[c] && gameData[a] !== "empty") {
       return [true, gameData[a]]; // Игрок выиграл
     }

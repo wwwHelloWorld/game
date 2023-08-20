@@ -95,7 +95,7 @@ function CellBar() {
     <>
       <div className={styles["cellBar-container"]}>
         <div className={styles.cellBar}>
-          {gameData.map((el: any, i: number) => (
+          {gameData && gameData.map((el: any, i: number) => (
             <div key={i} onClick={() => moveHandler(i)}>
               <Cell type={el} />
             </div>

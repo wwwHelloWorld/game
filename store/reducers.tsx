@@ -56,7 +56,7 @@ export const updateData = createAsyncThunk<FetchDataPayload>(
 export const getData = createAsyncThunk<FetchDataPayload>(
   "gameData/fetchGameData",
   async () => {
-    const response = await axios.get<string[]>("https://game.goaltime.com.ua//data");
+    const response = await axios.get<string[]>("https://game.goaltime.com.ua/data");
     return response.data;
   }
 );
