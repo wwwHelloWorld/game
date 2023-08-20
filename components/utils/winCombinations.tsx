@@ -1,6 +1,6 @@
 import { DataItem } from "@/store/reducers";
 
-export const winCombinations  = (gameData: DataItem) => {
+export const winCombinations  = (gameData: DataItem): any => {
   const winCombinations = [
     [0, 1, 2], // Первая горизонталь
     [3, 4, 5], // Вторая горизонталь
