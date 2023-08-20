@@ -20,8 +20,11 @@ import {
   setActiveSing,
   setIsReset,
 } from "@/store/reducers";
-import Button from "./button";
+// import Button from "./button";
 import { winCombinations } from "./utils/winCombinations";
+import ButtonUI from "./button";
+import { Button } from "semantic-ui-react";
+import Space from "./space";
 
 function CellBar() {
   // const [endGame, setEndGame] = useState<boolean>(false);
@@ -54,19 +57,17 @@ function CellBar() {
   );
 
   useLayoutEffect(() => {
-
     setInterval(() => {
       dispatch(getData() as any);
     }, 7000);
-
   }, []);
 
   useLayoutEffect(() => {
     const win: any = winCombinations(gameData);
     console.log(win + "WIN");
-    if (win[0] && !isWinner ) {
+    if (win[0] && !isWinner) {
       // alert(`WIN! ${win[1]} is winner!`);
-      console.log("WINWINWIN")
+      console.log("WINWINWIN");
       setIsWinner(true);
       dispatch(isActiveGame(false));
       dispatch(updateData() as any);
@@ -95,19 +96,24 @@ function CellBar() {
     <>
       <div className={styles["cellBar-container"]}>
         <div className={styles.cellBar}>
-          {gameData && gameData.map((el: any, i: number) => (
-            <div key={i} onClick={() => moveHandler(i)}>
-              <Cell type={el} />
-            </div>
-          ))}
+          {gameData &&
+            gameData.map((el: any, i: number) => (
+              <div key={i} onClick={() => moveHandler(i)}>
+                <Cell type={el} />
+              </div>
+            ))}
         </div>
       </div>
       {isWinner && (
-      <h1>{`WIN!  ${winCombinations(gameData)[1]} is winner!`}</h1>
-      )
-      }
-      <Button action={resetHandler} text="reset" />
-      <Button action={startHandler} text="Start" />
+        <h1>{`WIN!  ${winCombinations(gameData)[1]} is winner!`}</h1>
+      )}
+
+      <Space size={20}/>
+      <Button.Group>
+        <ButtonUI action={startHandler} style={"green"} type={"huge"} text="START" />
+        <Button.Or text="or" />
+        <ButtonUI action={resetHandler} type={"huge"} text="RESET" />
+      </Button.Group>
     </>
   );
 }

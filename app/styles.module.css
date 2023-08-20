@@ -1,3 +1,23 @@
+.main {
+  color: rgb(var(--foreground-rgb));
+  background-color: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+
+    background-image: url(../public/bg.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.h1-title {
+  color: white;
+}
+
+
 main.flex {
   background-color: blueviolet;
 }
@@ -5,15 +25,16 @@ main.flex {
 .cell {
   width: 100px;
   height: 100px;
-  border: 3px solid blue;
+  border: 5px solid blue;
   background-color: gold;
+  opacity: 0.9;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .cell:hover {
-  opacity: 0.5;
+  opacity: 0.7;
   cursor: pointer;
 }
 .sing {
