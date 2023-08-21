@@ -29,7 +29,9 @@ import Space from "./space";
 function CellBar() {
   // const [endGame, setEndGame] = useState<boolean>(false);
   const [isWinner, setIsWinner] = useState<boolean>(false);
+  const [isDraw, setIsDraw] = useState<boolean>(false);
   const isActive = useSelector((store: any) => store.gameData.isActiveGame);
+  const isReset = useSelector((store: any) => store.gameData.isReset)
   const gameData = useSelector((store: any) => store.gameData.gameData);
   const allState = useSelector((store: any) => store.gameData);
   const activeSing = useSelector((store: any) => store.gameData.activeSing);
@@ -70,11 +72,18 @@ function CellBar() {
       console.log("WINWINWIN");
       setIsWinner(true);
       dispatch(isActiveGame(false));
-      dispatch(updateData() as any);
+
     }
-  }, [gameData]);
+    if (!win[0] && !gameData.includes("empty")) {
+      setIsDraw(true);
+      dispatch(isActiveGame(false));
+
+    }
+  }, [dispatch, gameData, isWinner]);
 
   const resetHandler = () => {
+    setIsDraw(false);
+    setIsReset(false);
     dispatch(resetGame({}));
     dispatch(isActiveGame(false) as any);
     dispatch(setIsReset(true));
@@ -82,6 +91,9 @@ function CellBar() {
   };
 
   const startHandler = () => {
+    setIsDraw(false);
+    setIsWinner(false)
+    setIsReset(false);
     dispatch(resetGame({}));
     dispatch(isActiveGame(true) as any);
     dispatch(setSing("one"));
@@ -104,13 +116,29 @@ function CellBar() {
             ))}
         </div>
       </div>
-      {isWinner && (
-        <h1>{`WIN!  ${winCombinations(gameData)[1]} is winner!`}</h1>
-      )}
+      <div className={styles['message-container']}>
+        {isWinner && !isReset && (
+          <h1>{`WIN!  ${winCombinations(gameData)[1] === "one" ? "X" : "0"} is winner!`}</h1>
+        )}
+        {isDraw && !isReset && (
+          <h1>{`DRAW!! NOBODY IS WINNER`}</h1>
+        )}
+        {isActive && !isReset && !isDraw && !isWinner &&(
+          <h1>{`YOUR SING IS ${sing === "one" ? "X" : "0"}`}</h1>
+        )}
+        {!isActive  && (
+          <h1>{`START THE NEW GAME!`}</h1>
+        )}
+      </div>
 
-      <Space size={20}/>
+      <Space size={20} />
       <Button.Group>
-        <ButtonUI action={startHandler} style={"green"} type={"huge"} text="START" />
+        <ButtonUI
+          action={startHandler}
+          style={"green"}
+          type={"huge"}
+          text="START"
+        />
         <Button.Or text="or" />
         <ButtonUI action={resetHandler} type={"huge"} text="RESET" />
       </Button.Group>
