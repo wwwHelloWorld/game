@@ -15,6 +15,7 @@
 
 .h1-title {
   color: white;
+  white-space: nowrap;
 }
 
 
@@ -39,6 +40,7 @@ main.flex {
 }
 .sing {
   font-size: 50px;
+  color: black;
 }
 
 .cellBar-container {
