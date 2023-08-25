@@ -19,19 +19,21 @@ import {
   setSing,
   setActiveSing,
   setIsReset,
+  setIsGameOver
 } from "@/store/reducers";
 // import Button from "./button";
 import { winCombinations } from "./utils/winCombinations";
 import ButtonUI from "./button";
 import { Button } from "semantic-ui-react";
 import Space from "./space";
+import { Loader } from "semantic-ui-react";
 
 function CellBar() {
   // const [endGame, setEndGame] = useState<boolean>(false);
   const [isWinner, setIsWinner] = useState<boolean>(false);
   const [isDraw, setIsDraw] = useState<boolean>(false);
   const isActive = useSelector((store: any) => store.gameData.isActiveGame);
-  const isReset = useSelector((store: any) => store.gameData.isReset)
+  const isReset = useSelector((store: any) => store.gameData.isReset);
   const gameData = useSelector((store: any) => store.gameData.gameData);
   const allState = useSelector((store: any) => store.gameData);
   const activeSing = useSelector((store: any) => store.gameData.activeSing);
@@ -71,13 +73,13 @@ function CellBar() {
       // alert(`WIN! ${win[1]} is winner!`);
       console.log("WINWINWIN");
       setIsWinner(true);
+      dispatch(setIsGameOver(true));
       dispatch(isActiveGame(false));
-
     }
     if (!win[0] && !gameData.includes("empty")) {
       setIsDraw(true);
+      dispatch(setIsGameOver(true));
       dispatch(isActiveGame(false));
-
     }
   }, [dispatch, gameData, isWinner]);
 
@@ -92,7 +94,7 @@ function CellBar() {
 
   const startHandler = () => {
     setIsDraw(false);
-    setIsWinner(false)
+    setIsWinner(false);
     setIsReset(false);
     dispatch(resetGame({}));
     dispatch(isActiveGame(true) as any);
@@ -116,18 +118,20 @@ function CellBar() {
             ))}
         </div>
       </div>
-      <div className={styles['message-container']}>
+      <div className={styles["message-container"]}>
         {isWinner && !isReset && (
-          <h1>{`WIN!  ${winCombinations(gameData)[1] === "one" ? "X" : "0"} is winner!`}</h1>
+          <h1>{`WIN!  ${
+            winCombinations(gameData)[1] === "one" ? "X" : "0"
+          } is winner!`}</h1>
         )}
-        {isDraw && !isReset && (
-          <h1>{`DRAW!! NOBODY IS WINNER`}</h1>
-        )}
-        {isActive && !isReset && !isDraw && !isWinner &&(
+        {isDraw && !isReset && <h1>{`DRAW!! NOBODY IS WINNER`}</h1>}
+        {isActive && !isReset && !isDraw && !isWinner && (
           <h1>{`YOUR SING IS ${sing === "one" ? "X" : "0"}`}</h1>
         )}
-        {!isActive  && (
-          <h1>{`START THE NEW GAME!`}</h1>
+        {!isActive && !isGameOver && (
+          <h1>
+            {`START THE NEW GAME!`} <Loader active inline />
+          </h1>
         )}
       </div>
 
@@ -138,6 +142,7 @@ function CellBar() {
           style={"green"}
           type={"huge"}
           text="START"
+          disabled={!isActive ? false : true}
         />
         <Button.Or text="or" />
         <ButtonUI action={resetHandler} type={"huge"} text="RESET" />

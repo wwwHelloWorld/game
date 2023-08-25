@@ -15,9 +15,9 @@ const initialStateGameData: GameDataState = {
   ],
   isActiveGame: false,
   sing: "null",
-  activeSing: "one",
+  activeSing: null,
   isReset: false,
-  // isGameOver: false,
+  isGameOver: false,
 };
 
 export type DataItem = string;
@@ -28,7 +28,7 @@ export interface GameDataState {
   isActiveGame: boolean;
   activeSing: "one" | "null" | null;
   isReset: boolean;
-  // isGameOver: boolean;
+  isGameOver: boolean;
 }
 
 type FetchDataPayload = string[];
@@ -83,9 +83,9 @@ export const gameDataSlice = createSlice({
     setIsReset(state, action) {
       state.isReset = action.payload;
     },
-    // setIsGameOver(state, action) {
-    //   state.isGameOver = action.payload;
-    // }
+    setIsGameOver(state, action) {
+      state.isGameOver = action.payload;
+    }
 
   },
   extraReducers: (builder) => {
@@ -100,7 +100,7 @@ export const gameDataSlice = createSlice({
       }
       // if (action.payload.isGameOver) {
       //   state.isGameOver = true;
-      //   state.isReset = true;
+
       // }
     });
     builder.addCase(getData.fulfilled, (state, action: any) => {
@@ -127,5 +127,6 @@ export const {
   setSing,
   setActiveSing,
   setIsReset,
+  setIsGameOver
 } = gameDataSlice.actions;
 export default gameDataSlice.reducer;
