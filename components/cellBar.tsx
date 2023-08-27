@@ -4,6 +4,7 @@ import styles from "../app/styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Key,
+  Suspense,
   memo,
   useCallback,
   useEffect,
@@ -47,12 +48,14 @@ function CellBar() {
   const moveHandler = useCallback(
     (index: number) => {
       // Обработчик клика оптимизирован с помощью useCallback, чтобы не создавать новые функции при каждом ререндере
-      if (isActive && sing === activeSing) {
+      if (isActive && sing === activeSing && gameData[index] === "empty") {
         dispatch(addSing({ index }));
         dispatch(setActiveSing(sing === "one" ? "null" : "one"));
         dispatch(updateData() as any);
-      } else if (isActive && sing !== activeSing) {
+      } else if (isActive && sing !== activeSing && gameData[index] === "empty") {
         alert("IS NOT YOUR MOVE! WAIT!");
+      } else if (gameData[index] !== "empty") {
+        alert("THIS CELL IS NOT FREE")
       } else {
         alert("PRESS START BUTTON FOR STARTING THE GAME");
       }
@@ -113,7 +116,9 @@ function CellBar() {
           {gameData &&
             gameData.map((el: any, i: number) => (
               <div key={i} onClick={() => moveHandler(i)}>
+                <Suspense>
                 <Cell type={el} />
+                </Suspense>
               </div>
             ))}
         </div>

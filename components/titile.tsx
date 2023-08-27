@@ -18,7 +18,7 @@ export default function Title() {
         <h1 className={styles["h1-title"]}>MAKE YOUR MOVE!</h1>
       ) : activeSing !== sing && activeSing !== null && !isGameOver ? (
         <h1 style={{ textAlign: "center" }} className={styles["h1-title"]}>
-          Waiting <Loader active inline size="large" />
+          Waiting <Loader active inline size="small" />
         </h1>
       ) : (
         isGameOver ? (

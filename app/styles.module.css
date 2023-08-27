@@ -52,6 +52,19 @@ main.flex {
   color: black;
 }
 
+
+
+.one {
+  font-family: cursive;
+  font-size: 55px;
+  color: rgb(56, 136, 3);
+}
+
+.null {
+  font-family: cursive;
+  font-size: 55px;
+  color:rgb(170, 0, 0);
+}
 .cellBar-container {
   width: 100vw;
   display: flex;

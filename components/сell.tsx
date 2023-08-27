@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "../app/styles.module.css";
+import { Transition } from "semantic-ui-react";
 
 
 export type CellProps = string;
@@ -25,7 +26,9 @@ export default function Cell({ type }: any) {
   return (
     <>
       <div className={styles.cell}>
-        <p className={styles.sing}>{sing}</p>
+      <Transition visible={true} animation='fade' duration={1000}>
+        <p className={styles[type]}>{sing !== "empty" ? sing : ""}</p>
+      </Transition>
       </div>
     </>
   );
